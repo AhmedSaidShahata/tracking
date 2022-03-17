@@ -1,0 +1,276 @@
+<div class="page-title">
+  <div class="row">
+    <div class="col-sm-6">
+      <h4 class="mb-0"> {{ 'excel_employee' | translate }}
+      </h4>
+    </div>
+    <div class="col-sm-6">
+      <ol class="breadcrumb pt-0 float-left float-sm-right ">
+        <li class="breadcrumb-item"><a href="javascript:void(0);" class="default-color">{{ 'control_emps' | translate }}</a></li>
+        <li class="breadcrumb-item active">{{ 'excel_employee' | translate }} </li>
+      </ol>
+    </div>
+  </div>
+</div>
+<!-- main body -->
+<div class="row">
+  <div class="col-xl-12 mb-30">
+    <div class="card card-statistics h-100">
+      <div class="card-body">
+
+
+        <form novalidate #addasset="ngForm" (ngSubmit)="AssginAssets(addasset)">
+
+
+
+          <div class="row">
+
+
+            <div class="form-group col-md-4">
+              <label> {{ 'location' | translate }} </label>
+              <select class="form-control" name="selectedlocation" [(ngModel)]="selectedlocation" required>
+                <option value="">{{ 'select' | translate }}</option>
+
+                <option *ngFor="let obj of locations" [value]="obj.Id">{{obj | translate }}</option>
+
+
+              </select>
+
+              <div class="validation-error "
+                   *ngIf=" submitForm && addasset.controls['selectedlocation'].errors?.required">
+                {{ 'required' | translate }}
+
+              </div>
+            </div>
+
+
+
+
+            <div class="form-group col-md-4">
+              <label> {{ 'emps_departments' | translate }} </label>
+              <select name="selectedDeps"  class="form-control" [(ngModel)]="selectedDeps">
+                <option value="">{{ 'select' | translate }}</option>
+                <option *ngFor="let obj of main_categories" [value]="obj.Id">{{obj | translate }}</option>
+
+              </select>
+
+              <div class="validation-error "
+                   *ngIf=" submitForm && addasset.controls['selectedDeps'].errors?.required">
+                {{ 'required' | translate }}
+
+              </div>
+            </div>
+
+
+
+            <div class="form-group col-md-4">
+              <label>  {{ 'your_manger' | translate }}  </label>
+
+
+              <ng-select
+                [multiple]="false"
+                name="selectedAssigner"
+                placeholder="{{ 'select' | translate }}"
+
+                [(ngModel)]="selectedAssigner">
+                <ng-option *ngFor="let obj of assigners" [value]="obj.Id">
+                  {{obj | translate }}</ng-option>
+
+              </ng-select>
+
+
+
+
+              <div class="validation-error "
+                   *ngIf=" submitForm && addasset.controls['selectedAssigner'].errors?.required">
+                {{ 'required' | translate }}
+
+              </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+          </div>
+
+
+
+          <div class="row">
+            <!--<button type="button" class="btn btn-success btn-lg col-md-2" style="margin: 10px">أضافة</button>-->
+
+            <button type="submit"
+                    class="btn btn-primary  btn-lg  col-md-2"
+                    style="margin: 10px">{{ 'add' | translate }}</button>
+
+
+            <button type="button" (click)="ClearAll()" class="btn btn-danger btn-lg col-md-2" style="margin: 10px">{{ 'clear' | translate }}</button>
+
+
+          </div>
+
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="row">
+  <div class="col-xl-12 mb-30">
+    <div class="card card-statistics h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-0">{{ 'emps_list' | translate }}</h5>
+
+
+
+
+
+        <div class="row justify-content-center">
+
+
+          <div class="form-group col-md-4">
+
+            <button type="button" (click)="selectInAsset()" class="btn btn-primary  btn-lg btn-block"
+                    style="margin: 10px">{{ 'select_all_in' | translate }}
+
+
+              <div class="float-right" >
+                <span class="badge badge-pill badge-success">{{this.inSystemCount}}</span>
+              </div>
+
+            </button>
+
+
+
+          </div>
+
+
+
+          <div class="form-group col-md-4">
+
+            <button type="button" (click)="selectOutAsset()" class="btn btn-primary  btn-lg btn-block"
+                    style="margin: 10px">{{ 'select_all_out' | translate }}
+
+              <div class="float-right" >
+                <span class="badge badge-pill badge-success">{{this.outSystemCount}}</span>
+              </div>
+
+            </button>
+
+
+
+          </div>
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+        <div class="table-responsive">
+          <table class="table table-1 table-bordered table-striped mb-0">
+            <thead>
+            <tr  >
+              <th>###</th>
+
+
+              <th>{{ 'arabic_name' | translate }}</th>
+              <th>{{ 'english_name' | translate }}</th>
+               <th>{{ 'mobile' | translate }}</th>
+              <th>{{ 'email' | translate }}</th>
+              <th>{{ 'status' | translate }}</th>
+              <th >{{ 'delete' | translate }}</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr   *ngFor="let item of emplist;let i = index">
+
+
+              <input
+
+
+                (change)="item.selectedAttach = !item.selectedAttach"
+
+
+                type="checkbox" [checked]="item.selectedAttach" class="remember-checkbox"
+
+              />
+
+
+
+              <td>{{item.NameAr}}</td>
+              <td>{{item.NameEn}}</td>
+               <td>{{item.MobileNumber}}</td>
+              <td>{{item.user.Email}}</td>
+
+
+
+
+
+              <td *ngIf="item.foundinsystem == true " style="color: red">
+                {{ 'found2' | translate }}
+
+
+
+              </td>
+
+
+
+              <td *ngIf="item.foundinsystem == false" style="color: green">
+                {{ 'not_found3' | translate }}
+              </td>
+
+
+              <td >
+
+                <i  (click)="deleteAsset(item,i)"  class="text-primary ti-trash "></i>
+              </td>
+
+
+
+
+            </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+
+
+
+

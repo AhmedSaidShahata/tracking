@@ -1,0 +1,9 @@
+<div class="d-flex">
+  <div *ngFor="let image of images ; let i=index" class="mx-1">
+    <img class="img-thumbnail d-block" style="width: 80px; height: 80px" [src]="image.ImageUrl"
+         (click)="showImage(image)">
+    <button type="button"  class="btn btn-danger btn-sm " style="width: 100% ;margin-top: 2px " (click)="deleteImage(image , i)"><i
+      class="fa fa-trash text-white"></i>
+    </button>
+  </div>
+</div>

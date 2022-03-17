@@ -1,0 +1,166 @@
+<div class="page-title">
+  <div class="row">
+    <div class="col-sm-6">
+      <h4 class="mb-0"> {{ 'floor' | translate }}  </h4>
+    </div>
+    <div class="col-sm-6">
+
+      <ol class="breadcrumb pt-0 float-left float-sm-right ">
+        <li class="breadcrumb-item"><a href="javascript:void(0);" class="default-color">{{ 'pages_setting' | translate
+          }}</a></li>
+        <li class="breadcrumb-item active">{{ 'floor' | translate }}</li>
+      </ol>
+
+
+
+    </div>
+  </div>
+</div>
+<!-- main body -->
+<div class="row">
+  <div class="col-xl-12 mb-30">
+    <div class="card card-statistics h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-0">{{ 'control_floor' | translate }}</h5>
+        <div class="card-body">
+          <form #inputForm="ngForm" (ngSubmit)="formSubmit(inputForm)">
+            <div class="form-row">
+
+              <div class="form-group col-md-4">
+                <label>{{ 'arabic_name' | translate }}</label>
+                <input
+                  myArabicOnly
+                  type="text" class="form-control" placeholder="{{ 'arabic_name' | translate }}" required
+                       name="nameAr" [(ngModel)]="addUpdateTower.NameAr">
+                <div class="validation-error "
+                     *ngIf="addUpdateTower.submitForm && inputForm.controls['nameAr'].errors?.required">
+                  {{ 'required' | translate }}
+                </div>
+              </div>
+
+
+              <div class="form-group col-md-4">
+                <label>{{ 'english_name' | translate }}</label>
+                <input
+                  myEnglishOnly
+                  type="text" class="form-control" placeholder="{{ 'english_name' | translate }}" required
+                       name="nameEn" [(ngModel)]="addUpdateTower.NameEn">
+                <div class="validation-error "
+                     *ngIf="addUpdateTower.submitForm && inputForm.controls['nameEn'].errors?.required">
+                  {{ 'required' | translate }}
+                </div>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label> {{ 'its_location' | translate }}</label>
+                <select name="selectedMaincat" required class="form-control"
+                        (change)="getAllSubCat($event)"
+                        [(ngModel)]="selectedMaincat" >
+                  <option value="">{{ 'select' | translate }}</option>
+
+
+
+
+                  <option *ngFor="let obj of locations" [value]="obj.Id">{{obj | translate }}</option>
+
+                </select>
+                <div class="validation-error "
+                     *ngIf="addUpdateTower.submitForm  && inputForm.controls['selectedMaincat'].errors?.required">
+                  {{ 'required' | translate }}
+                </div>
+
+
+
+
+
+
+              </div>
+
+
+
+              <div class="form-group col-md-4">
+                <label> {{ 'its_building' | translate }}</label>
+                <select name="selectedSubcat" required class="form-control" [(ngModel)]="selectedSubcat" >
+                  <option value="">{{ 'select' | translate }}</option>
+
+
+
+
+                  <option *ngFor="let obj of subcat" [value]="obj.Id">{{obj | translate }}</option>
+
+                </select>
+                <div class="validation-error "
+                     *ngIf="addUpdateTower.submitForm  && inputForm.controls['selectedSubcat'].errors?.required">
+                  {{ 'required' | translate }}
+                </div>
+
+
+
+
+
+
+              </div>
+
+
+            </div>
+
+            <div class="form-group clearfix ">
+
+              <button type="submit" class="btn btn-success btn-lg">{{ (addUpdateTower.rowIndex== -1? 'add' :'edit') |
+                translate }}
+              </button>
+              <button type="button" class="btn btn-danger btn-lg" (click)="clearForm()">{{ 'clear' | translate }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xl-12 mb-30">
+    <div class="card card-statistics h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-0">{{ 'floor_list' | translate }}
+          <i   >
+            <img (click)="printExcel()" src="assets/images/excel_icon.png"  >
+
+          </i>
+        </h5>
+
+        <div class="form-group col-md-4" style="margin-top: 20px">
+
+          <input type="text" class="form-control" placeholder="{{ 'search' | translate }}"
+                 (input)="filterBuildings($event)">
+        </div>
+        <div class="table-responsive">
+
+          <ngx-datatable
+
+            [messages]="{emptyMessage: 'NODATA' | translate, totalMessage: 'TOTAL' | translate, selectedMessage: false}"
+
+
+            class="bootstrap" [rows]="towers" [columns]="columns" [columnMode]="'force'"
+            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+
+            <!--edit cell-->
+            <ng-template #editTemplate let-row="row" let-value="value" let-rowIndex="rowIndex">
+              <span class="text-primary"><i class="fa fa-edit" (click)="editTower(rowIndex)"></i></span>
+            </ng-template>
+
+            <!--  delete cell-->
+            <ng-template  #deleteTemplate let-row="row" let-value="value" let-rowIndex="rowIndex">
+              <span appCanDelete class="text-danger"> <i class="fa fa-trash" (click)="deleteTower(rowIndex)"></i></span>
+            </ng-template>
+          </ngx-datatable>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

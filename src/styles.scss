@@ -1,0 +1,262 @@
+/* You can add global styles to this file, and also import other style files */
+/*
+Template:  Webmin - Bootstrap 4 & Angular 5 Dashboard Template
+Author: potenzaglobalsolutions.com
+Design and Developed by: potenzaglobalsolutions.com
+
+NOTE: This file includes all admin Template plugins and Shortcodes. If you don't want to use any plugins from below. You can simply remove that line from this file.
+*/
+/*
+================================================
+[  Table of contents  ]
+================================================
+
+1. Variables
+2. Mixins
+3. Helpers
+4. Typography
+5. Components
+	- Accordion
+	- Button
+	- Lists
+	- Nice Select
+	- Pricing
+	- Social Icon
+	- Tabs
+	- Owl Carousel
+6. Sidebar
+7. Layout
+8. Responsive
+
+======================================
+[ End table content ]
+======================================
+*/
+/*Global*/
+//@import "~assets/scss/variables";
+//@import "~assets/scss/mixins";
+//@import "~assets/scss/helpers";
+//@import "~assets/scss/typography";
+///*Shortcodes*/
+//@import "~assets/scss/components/accordion";
+//@import "~assets/scss/components/button";
+//@import "~assets/scss/components/list-style";
+//@import "~assets/scss/components/pricing";
+//@import "~assets/scss/components/social-icon";
+//@import "~assets/scss/components/tabs";
+//@import "~assets/scss/components/owl-carousel";
+///*layout*/
+//@import "~assets/scss/sidebar";
+//@import "~assets/scss/layout";
+//@import "~assets/scss/responsive";
+@import "~@ng-select/ng-select/themes/material.theme.css";
+/* Fixes */
+
+.card .btn-group .dropdown-menu {
+  top: 0;
+}
+
+.modal-header {
+
+  background-color: #0e604c;
+  color: #fff;
+
+}
+
+.modal-title {
+  color: white;
+}
+
+.modal:before {
+  content: '';
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .5);
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+label {
+  font-size: 18px;
+}
+
+h5 {
+  font-size: 18px;
+}
+
+input {
+  font-size: 18px;
+}
+
+li {
+  font-size: 18px;
+}
+
+.custom-day.range, .custom-day:hover, .ngb-dp-day .bg-primary {
+  background: #d09d2a !important;
+}
+
+.calendar-main .month-name {
+  margin-top: 0.5rem;
+}
+
+.calendar-main .btn-success {
+  background: #d09d2a;
+  border-color: #d09d2a;
+}
+
+.calendar-main .btn-success:not(:disabled):not(.disabled):active, .calendar-main .btn-success:not(:disabled):not(.disabled).active {
+  background-color: #70a52c;
+  border-color: #70a52c;
+}
+
+.validation-error {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+.table-custom-cell {
+  button {
+    width: 18px;
+    height: 18px;
+    align-self: center;
+  }
+
+  i {
+    color: white;
+  }
+
+}
+
+.ngx-datatable.bootstrap .datatable-body .datatable-body-row .datatable-body-cell {
+  text-align: right !important;
+}
+
+select.form-control {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.btn-danger {
+  //background : #d09d2a;
+  color: #fff;
+  background-color: #d09d2a;
+  border-color: #d09d2a;
+}
+
+.btn-danger:hover {
+  //background : #d09d2a;
+  color: #fff;
+  background-color: rgba(208, 157, 42, 0.66);
+  border-color: rgba(208, 157, 42, 0.66);
+}
+
+.btn-primary {
+  //background : #d09d2a;
+  color: #fff;
+  background-color: #0e604c;
+  border-color: #0e604c;
+}
+
+.btn-primary:active {
+  //background : #d09d2a;
+  color: #fff;
+  background-color: rgba(14, 96, 76, 0.78);
+  border-color: rgba(14, 96, 76, 0.78);
+}
+
+.btn-success {
+  //background : #d09d2a;
+  color: #fff;
+  background-color: #0e604c;
+  border-color: #0e604c;
+}
+
+.btn-success:hover {
+  //background : #d09d2a;
+  color: #fff;
+  background-color: rgba(14, 96, 76, 0.78);
+  border-color: rgba(14, 96, 76, 0.78);
+}
+
+.ng-select .ng-select-container {
+  align-items: center;
+  background: rgb(246, 247, 248);
+  min-height: 40.5px
+}
+
+.ng-select .ng-select-container .ng-value-container .ng-placeholder {
+  align-self: flex-end;
+  bottom: 4px;
+}
+
+.form-control::-webkit-input-placeholder {
+  color: #CCCCCC;
+}
+
+/* WebKit, Blink, Edge */
+.form-control:-moz-placeholder {
+  color: #CCCCCC;
+}
+
+/* Mozilla Firefox 4 to 18 */
+.form-control::-moz-placeholder {
+  color: #CCCCCC;
+}
+
+/* Mozilla Firefox 19+ */
+.form-control:-ms-input-placeholder {
+  color: #CCCCCC;
+}
+
+/* Internet Explorer 10-11 */
+.form-control::-ms-input-placeholder {
+  color: #CCCCCC;
+}
+
+/* Microsoft Edge */
+
+datatable-scroller {
+  width: 100% !important;
+}
+
+.ngx-datatable.scroll-vertical .datatable-body {
+  overflow-x: hidden;
+}
+
+.card-body .form-row {
+  margin-top: 1rem;
+}
+
+td, th {
+  text-align: center !important;
+}
+
+.close {
+  opacity: 1.0 !important;
+}
+
+.custom-file-input:lang(en) ~ .custom-file-label::after,
+.custom-file-label
+{
+  content: "استعراض" !important;
+}
+
+.empty-row{
+  text-align: center;
+  padding: 20px;
+  font-size: 2rem;
+}
+
+.ng-option-label{
+  float: right;
+}

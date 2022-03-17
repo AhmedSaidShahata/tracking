@@ -1,0 +1,191 @@
+<!-- main body -->
+
+
+
+<app-model class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="exampleModalLabel">
+          <h5 class="modal-title" *ngIf="editMode == false">{{ 'add_new_inventory' | translate }}</h5>
+          <h5 class="modal-title" *ngIf="editMode == true">{{ 'edit_inventory' | translate }}</h5>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeModal()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form novalidate #addasset="ngForm" (ngSubmit)="addNewAsset(addasset)">
+
+        <div class="form-row">
+             <div class="form-group col-md-6">
+              <label>{{ 'inventory_name' | translate}} </label>
+              <input required name="inventory_name" [(ngModel)]="inventory_name" type="text" class="form-control"
+                     placeholder=" {{ 'inventory_name' | translate}}">
+
+               <div class="validation-error "
+                    *ngIf="submitForm && addasset.controls['inventory_name'].errors?.required">
+                 {{ 'required' | translate }}
+               </div>
+            </div>
+
+
+
+
+          <div class="form-group col-md-6">
+          </div>
+
+
+
+
+
+
+
+
+          <div class="form-group col-md-6">
+            <label>  {{ 'location' | translate }}  </label>
+            <select required name="selectedLocation" class="form-control" [(ngModel)]="selectedLocation" (change)="getBuild($event)">
+              <option value="">{{ 'select' | translate }}</option>
+              <option *ngFor="let obj of locations" [value]="obj.Id">{{obj | translate }}</option>
+
+            </select>
+
+            <div class="validation-error "
+                 *ngIf=" submitForm && addasset.controls['selectedLocation'].errors?.required">
+              {{ 'required' | translate }}
+            </div>
+          </div>
+
+
+          <div class="form-group col-md-6">
+            <label>  {{ 'building' | translate }}  </label>
+            <select  required name="selectedTowers" class="form-control"
+                     [(ngModel)]="selectedTowers" (change)="getFloors($event)">
+              <option value="">{{ 'select' | translate }}</option>
+              <option *ngFor="let obj of towers" [value]="obj.Id">{{obj | translate }}</option>
+
+
+            </select>
+
+            <div class="validation-error "
+                 *ngIf=" submitForm && addasset.controls['selectedTowers'].errors?.required">
+              {{ 'required' | translate }}
+            </div>
+          </div>
+
+
+          <div class="form-group col-md-6">
+            <label>  {{ 'floors' | translate }}  </label>
+            <select required name="selectedFloors" class="form-control" [(ngModel)]="selectedFloors" (change)="getFloorRooms($event)">
+              <option value="">{{ 'select' | translate }}</option>
+              <option *ngFor="let obj of floors" [value]="obj.Id">{{obj | translate }}</option>
+
+            </select>
+
+            <div class="validation-error "
+                 *ngIf=" submitForm && addasset.controls['selectedFloors'].errors?.required">
+              {{ 'required' | translate }}
+            </div>
+          </div>
+
+
+          <div class="form-group col-md-6">
+            <label>  {{ 'offices' | translate }}  </label>
+            <select required name="selectedRoom" class="form-control" [(ngModel)]="selectedRoom">
+              <option value="">{{ 'select' | translate }}</option>
+              <option *ngFor="let obj of rooms" [value]="obj.Id">{{obj | translate }}</option>
+
+            </select>
+
+            <div class="validation-error "
+                 *ngIf=" submitForm && addasset.controls['selectedRoom'].errors?.required">
+              {{ 'required' | translate }}
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+          <div class="form-group col-md-6">
+            <label> {{ 'inventory_start_date' | translate}}  </label>
+            <div class="input-group">
+              <input required class="form-control" placeholder="yyyy-mm-dd"
+                     name="Datepickerfrom"   ngbDatepicker #d="ngbDatepicker" [(ngModel)]="Datepickerfrom">
+              <div class="input-group-append">
+                <button class="btn btn-secondary" (click)="d.toggle()" type="button">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </div>
+              <div class="validation-error "
+                   *ngIf="submitForm && addasset.controls['Datepickerfrom'].errors?.required">
+                {{ 'required' | translate }}
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="form-group col-md-6">
+            <label>  {{ 'inventory_end_date' | translate}} </label>
+            <div class="input-group">
+              <input required class="form-control" placeholder="yyyy-mm-dd"
+                     name="Datepickerto"   ngbDatepicker #s="ngbDatepicker"  [(ngModel)]="Datepickerto">
+              <div class="input-group-append">
+                <button class="btn btn-secondary" (click)="s.toggle()" type="button">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="validation-error"
+                 *ngIf="submitForm && addasset.controls['Datepickerto'].errors?.required">
+              {{ 'required' | translate }}
+            </div>
+
+          </div>
+
+
+
+
+
+        </div>
+
+
+          <div class="row">
+
+            <button style="margin: 10px" class="btn btn-success btn-lg col-md-4" type="submit">
+              <span  *ngIf="editMode == false">
+                              {{ 'add' | translate }}
+
+              </span>
+
+
+              <span  *ngIf="editMode == true">
+                              {{ 'edit' | translate }}
+
+              </span>
+
+              <i class="fa fa-check"></i>
+            </button>
+
+
+            <button type="button" (click)="ClearAll()" class="btn btn-danger btn-lg col-md-4"
+                    style="margin: 10px">{{ 'clear' | translate }}</button>
+          </div>
+        </form>
+
+      </div>
+
+
+    </div>
+  </div>
+</app-model>

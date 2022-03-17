@@ -1,0 +1,114 @@
+<div class="page-title">
+  <div class="row">
+    <div class="col-sm-6">
+      <h4 class="mb-0">{{'emp_categories' |translate}}</h4>
+    </div>
+    <div class="col-sm-6">
+      <ol class="breadcrumb pt-0 float-left float-sm-right ">
+        <li class="breadcrumb-item"><a href="javascript:void(0);" class="default-color">{{ 'pages_setting' | translate
+          }}</a></li>
+        <li class="breadcrumb-item active">{{ 'emps_departments' | translate }}</li>
+      </ol>
+    </div>
+  </div>
+</div>
+<!-- main body -->
+<div class="row">
+  <div class="col-xl-12 mb-30">
+    <div class="card card-statistics h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-0">{{ 'control_emps_departments' | translate }}
+
+
+        </h5>
+        <form novalidate #locationForm="ngForm" (ngSubmit)="formSubmit(locationForm)">
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label>{{ 'arabic_name' | translate }}</label>
+              <input myArabicOnly type="text" class="form-control" placeholder="{{ 'arabic_name' | translate }}"
+                     [(ngModel)]="addUpdateLocation.NameAr" name="nameAr" required>
+
+              <div class="validation-error "
+                   *ngIf="addUpdateLocation.submit && locationForm.controls['nameAr'].errors?.required">
+                {{ 'required' | translate }}
+              </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+              <label>{{ 'english_name' | translate }}</label>
+              <input myEnglishOnly type="text" class="form-control" placeholder="{{ 'english_name' | translate }}"
+                     [(ngModel)]="addUpdateLocation.NameEn" name="nameEn" required>
+              <div class="validation-error "
+                   *ngIf="addUpdateLocation.submit  && locationForm.controls['nameEn'].errors?.required">
+                {{ 'required' | translate }}
+              </div>
+            </div>
+
+
+          </div>
+
+          <div class="form-group clearfix ">
+            <button type="submit" class="btn btn-success btn-lg">{{ (addUpdateLocation.id==0 ?'add':'edit') |
+              translate}}
+            </button>
+            <button type="button" class="btn btn-danger btn-lg" (click)="resetForm()">{{ 'clear' | translate }}</button>
+
+
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xl-12 mb-30">
+    <div class="card card-statistics h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-0">{{ 'department_list' | translate }}
+          <i >
+
+            <img (click)="printExcel()" src="assets/images/excel_icon.png"  >
+
+          </i></h5>
+
+
+        <div class="form-group col-md-4" style="margin-top: 20px">
+
+          <input [(ngModel)]="search" type="text" class="form-control" placeholder="{{ 'search' | translate }}"
+                 (input)="filterLocations($event)">
+        </div>
+        <div class="table-responsive">
+          <ngx-datatable
+
+            [messages]="{emptyMessage: ('NODATA' | translate), totalMessage:( 'TOTAL' | translate), selectedMessage: false}"
+
+
+            class="bootstrap" [rows]="locations" [columns]="columns" [columnMode]="'force'"
+            [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [limit]="10">
+
+            <!--edit cell-->
+            <ng-template #editTemplate let-row="row" let-value="value" let-rowIndex="rowIndex">
+              <span class="text-primary" (click)="editLocation(rowIndex)"><i class="fa fa-edit"></i></span>
+            </ng-template>
+
+            <!--  delete cell-->
+            <ng-template #deleteTemplate let-row="row" let-value="value" let-rowIndex="rowIndex">
+              <span appCanDelete class="text-danger" (click)="deleteLocation(rowIndex)"> <i
+                class="fa fa-trash"></i></span>
+            </ng-template>
+          </ngx-datatable>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+</div>

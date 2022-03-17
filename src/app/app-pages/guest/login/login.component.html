@@ -1,0 +1,92 @@
+﻿<div id="pre-loader" *ngIf="_commondata.loader.value">
+  <img src="assets/images/pre-loader/loader-01.svg" alt="">
+</div>
+
+<div class="wrapper">
+
+  <section class="height-100vh d-flex align-items-center page-section-ptb login"
+           style="background: url(../../../../assets/images/login-bg.jpg);">
+
+
+    <div class="container">
+      <div class="row justify-content-center no-gutters vertical-align">
+        <div class="col-lg-4 col-md-6 login-fancy-bg "
+        >
+
+          <div class="h-100"
+
+          >
+
+            <img    style=" height: 100%;  width: 100%" src="assets/images/login-inner-bg.jpg">
+
+          </div>
+
+
+          <div class="login-fancy">
+            <h2 class="text-white mb-20">{{ 'hello' | translate }}</h2>
+            <p class="mb-20 text-white">{{ 'login_in_system' | translate }}</p>
+            <ul class="list-unstyled  pos-bot pb-30">
+            </ul>
+          </div>
+
+
+
+        </div>
+
+
+        <div class="col-lg-4 col-md-6 bg-white">
+          <form novalidate #loginForm="ngForm" (ngSubmit)="loginClick(loginForm)">
+            <div class="login-fancy pb-40 clearfix">
+              <h3 class="mb-30">{{ 'login_to_system' | translate }}</h3>
+              <div class="section-field mb-20">
+                <label class="mb-10" for="email">{{ 'email' | translate }}</label>
+                <input id="email" class="web form-control" type="text"
+                       placeholder="{{ 'email' | translate }}" name="email"
+                       [(ngModel)]="userLoginRequest.Email"
+                       pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                       required>
+
+                <div class="validation-error "
+                     *ngIf="loginForm.submitted && loginForm.controls['email'].errors?.required">
+                  {{ 'enter_email' | translate }}
+                </div>
+                <div class="validation-error"
+                     *ngIf="loginForm.submitted && loginForm.controls['email'].errors?.pattern">
+                  {{ 'invalid_email' | translate }}
+                </div>
+              </div>
+              <div class="section-field mb-20">
+                <label class="mb-10" for="Password">{{ 'password' | translate }} </label>
+                <input id="Password" class="Password form-control" type="password"
+                       placeholder="{{ 'password' | translate }}"
+                       name="password" [(ngModel)]="userLoginRequest.PasswordHash" required minlength="5">
+
+                <div class="validation-error"
+                     *ngIf="loginForm.submitted && loginForm.controls['password'].errors?.required">
+                  {{ 'Enter_your_password' | translate }}
+                </div>
+                <div class="validation-error"
+                     *ngIf="loginForm.submitted && loginForm.controls['password'].errors?.minlength">
+                  {{ 'password_less_6' | translate }}
+                </div>
+              </div>
+              <div class="section-field">
+                <div class="remember-checkbox mb-30">
+                  <input type="checkbox" class="form-control" name="remember-me" id="remember-me"
+                         [checked]="rememberMe" (change)="rememberMe = !rememberMe"
+                  />
+                  <label for="remember-me"> {{ 'remember_me' | translate }}</label>
+                  <a routerLink="/forget_password" class="float-right">{{ 'forget_password' | translate }}</a>
+                </div>
+              </div>
+              <button class="button btn-success" type="submit">
+                {{ 'login' | translate }} <i class="fa fa-check"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

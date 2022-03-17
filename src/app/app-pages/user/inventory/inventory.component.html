@@ -1,0 +1,147 @@
+<div class="page-title">
+  <div class="row">
+    <div class="col-sm-6">
+      <h4 class="mb-0"> التحكم بدورات الجرد
+      </h4>
+    </div>
+    <div class="col-sm-6">
+      <ol class="breadcrumb pt-0 float-left float-sm-right ">
+        <li class="breadcrumb-item"><a href="javascript:void(0);" class="default-color">{{ 'main' | translate }}</a></li>
+        <li class="breadcrumb-item active"> {{ 'inventory_loops' | translate }}</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+
+
+<app-add-new-invatory #addinv>
+
+</app-add-new-invatory>
+
+
+
+<app-session-report #sessionResult>
+
+</app-session-report>
+
+
+<div class="row">
+  <div class="col-xl-12 mb-30">
+    <div class="card card-statistics h-100">
+      <div class="card-body">
+        <div class="row">
+
+
+          <div class="form-group col-md-4">
+            <a  (click)="showAddNewItem()" class="button button-border black btn-block" >{{ 'add_new_inventory_loop' | translate }}  </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row">
+  <div class="col-xl-12 mb-30">
+    <div class="card card-statistics h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-0">{{ 'inventory_loops_list' | translate }}</h5>
+
+
+
+        <div class="table-responsive">
+          <table class="table table-1 table-bordered table-striped mb-0">
+            <thead>
+            <tr  >
+
+              <th>{{ 'name' | translate }}  </th>
+              <th>{{ 'location' | translate }}</th>
+              <th>{{ 'building' | translate }}</th>
+              <th>{{ 'floor' | translate }} </th>
+              <th>{{ 'office_name' | translate }}</th>
+
+
+
+              <th>{{ 'inventory_start_date' | translate }}</th>
+              <th>{{ 'inventory_end_date' | translate }}</th>
+              <th>{{ 'status' | translate }}</th>
+              <th>{{ 'edit' | translate }}</th>
+              <th appCanDelete>{{ 'delete' | translate }}</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr   *ngFor="let item of sessionCycle;let i = index">
+
+              <td>{{item.Name}}</td>
+              <td>{{item.location | translate}}</td>
+              <td>{{item.tower | translate}}</td>
+              <td>{{item.floor| translate}}</td>
+              <td>{{item.room | translate}}</td>
+              <td>{{item.StartDate}}</td>
+              <td>{{item.EndDate}}</td>
+
+
+              <td *ngIf="item.Completed == 1" style="color: green">
+               <a> <i (click)="showReport(item,i)" >
+                {{ 'completed_inventory' | translate }}
+                </i>
+               </a>
+              </td>
+
+              <td *ngIf="item.Completed == 0" style="color: red">{{ 'uncompleted_inventory' | translate }}</td>
+
+              <td >
+                <i *ngIf="item.Completed == 0" (click)="editAsset(item,i)" class="fa fa-edit"></i>
+
+              </td>
+
+              <td appCanDelete>
+
+                <i  (click)="deleteAsset(item,i)"  class="text-primary ti-trash "></i>
+              </td>
+
+
+            </tr>
+
+            </tbody>
+          </table>
+
+
+          <div class="sm-mt-20" style="margin-top: 20px">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+
+
+                <ngb-pagination  [maxSize]="10" [directionLinks]="true"
+
+
+                                 [pageSize]="10" (pageChange)="SearchAsset($event)" [collectionSize]="count"
+                                   aria-label="Default pagination"></ngb-pagination>
+
+
+
+              </ul>
+            </nav>
+          </div>
+
+
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>

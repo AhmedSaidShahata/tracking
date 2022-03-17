@@ -1,0 +1,223 @@
+﻿<div class="wrapper" [class.slide-menu]="isSlideMenu">
+
+
+
+
+
+
+
+  <div id="pre-loader" *ngIf="_commondata.loader.value">
+    <img src="assets/images/pre-loader/loader-01.svg" alt="">
+  </div>
+
+  <!-- header start-->
+  <nav class="admin-header navbar navbar-default col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+       <!-- Top bar left -->
+       <ul class="nav navbar-nav mr-auto">
+        <li class="nav-item">
+          <a id="button-toggle" class="button-toggle-nav inline-block ml-20 pull-left" href="javascript:void(0);"
+             (click)="toggleMenu()"><i class="zmdi zmdi-menu ti-align-right"></i></a>
+        </li>
+        <li class="nav-item">
+          <div class="search" [class.search-open]="isSearchActive">
+            <a class="search-btn not_click" href="javascript:void(0);" (click)="toggleSearch()"></a>
+            <div class="search-box not-click">
+              <input type="text" class="not-click form-control" placeholder="{{ 'search' | translate }}"
+                     value="" name="{{ 'search' | translate }}">
+              <button class="search-button" type="submit"><i class="fa fa-search not-click"></i></button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    <!-- logo -->
+    <div class="bg-white text-left navbar-brand-wrapper">
+      <a class="navbar-brand brand-logo" href="javascript:void(0);"><img src="../../../../assets/images/logo-dark.png"/></a>
+      <a class="navbar-brand brand-logo-mini" href="javascript:void(0);"><img
+        src="../../../../assets/images/logo-icon-dark.png" alt=""></a>
+    </div>
+ 
+    <!-- top bar right -->
+    <ul class="nav navbar-nav ml-auto">
+
+
+      <li class="nav-item dropdown mr-30">
+        <a class="nav-link nav-pill user-avatar" data-toggle="dropdown" href="javascript:void(0);" role="button"
+           aria-haspopup="true" aria-expanded="false">
+          <img [src]="getUserImage()" alt="avatar">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <div class="dropdown-header">
+            <div class="media">
+              <div class="media-body">
+                <h5 class="mt-0 mb-0">{{user.UserName}}</h5>
+                <span>{{user.Email}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+
+          <a class="dropdown-item" href="javascript:void(0);" routerLink="/profile"><i class="text-warning ti-user"></i>{{'profile'
+            |translate}}</a>
+          <div class="dropdown-divider"></div>
+          <!--<a class="dropdown-item" href="javascript:void(0);"><i class="text-info ti-settings"></i>Settings</a>-->
+          <a class="dropdown-item" href="javascript:void(0);"
+             (click)="logOutClick()"><i class="text-danger ti-unlock"></i>{{ 'logout' | translate }}</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!--=================================
+   header End-->
+  <!--=================================
+   Main content -->
+
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Left Sidebar start-->
+      <div class="side-menu-fixed">
+        <div class="scrollbar side-menu-bg" malihu-scrollbar [scrollbarOptions]="scrollbarOptions">
+          <ul class="nav navbar-nav side-menu">
+            <!-- menu item Dashboard-->
+
+            <li>
+              <a href="javascript:void(0);" data-toggle="collapse" data-target="#elements"
+                 (click)="expandCollpse('elements')">
+                <div class="pull-left"><i class="ti-palette"></i><span class="right-nav-text">{{'assets' | translate}}</span></div>
+                <div class="pull-right"><i class="ti-plus"></i></div>
+                <div class="clearfix"></div>
+              </a>
+              <ul id="elements" class="collapse">
+                <li><a routerLink="/salesmen" routerLinkActive="active">
+
+
+
+
+
+                  <i class="fa fa-barcode"></i>
+                  {{ 'control_assets' | translate }} </a></li>
+                <li appShowRoute><a routerLink="/maincats" routerLinkActive="active">
+
+                  <i class="fa fa-home"></i>
+
+
+                  {{ 'main_departments' | translate }}</a></li>
+                <li appShowRoute><a routerLink="/subcat" routerLinkActive="active">
+                  <i class="fa fa-glide"></i>
+                  {{ 'categories' | translate }}</a></li>
+                <li appShowRoute><a routerLink="/models" routerLinkActive="active">
+                  <i class="fa fa-modx"></i>
+                  {{ 'model' | translate }}</a></li>
+                <!--<li><a routerLink="/add_new_salesman" routerLinkActive="active">Add new</a></li>-->
+              </ul>
+            </li>
+
+
+            <li>
+              <a  routerLink="/sysemps"><i class="fa fa-address-book-o"></i><span class="right-nav-text">{{ 'control_emps' | translate }} </span></a>
+            </li>
+
+
+            <li>
+              <a routerLink="/inventory"><i class=" ti-shopping-cart-full"></i><span class="right-nav-text"> {{ 'control_inventory' | translate }} </span></a>
+            </li>
+
+            <li appShowRoute>
+              <a href="javascript:void(0);" data-toggle="collapse" data-target="#table"
+                 (click)="expandCollpse('Table')">
+                <div class="pull-left"><i class="ti-layout-tab-window"></i><span
+                  class="right-nav-text">{{ 'pages_setting' | translate }}</span></div>
+                <div class="pull-right"><i class="ti-plus"></i></div>
+                <div class="clearfix"></div>
+              </a>
+              <ul id="Table" class="collapse">
+
+
+                <!--<li><a routerLink="/city" routerLinkActive="active">المدن</a></li>-->
+
+                <li><a routerLink="/location" routerLinkActive="active">
+                  <i class="ti-location-pin"></i>{{ 'location' | translate }}</a></li>
+                <li><a routerLink="/build" routerLinkActive="active">
+                  <i class="fa fa-building-o"></i>
+                  {{ 'buildings' | translate }}</a></li>
+                <li><a routerLink="/roofs" routerLinkActive="active">
+                  <i class="fa fa-bars"></i>
+                  {{ 'floors' | translate }}</a></li>
+
+                <li><a routerLink="/office" routerLinkActive="active">
+                  <i class="fa fa-shopping-bag"></i>
+                  {{ 'offices' | translate }}</a></li>
+
+                <li><a routerLink="/empdeps" routerLinkActive="active">
+                  <i class="fa fa-vcard"></i>
+                  {{ 'emps_departments' | translate }}</a></li>
+                <li><a *ngIf="false" routerLink="/nationalty" routerLinkActive="active">
+                  <i class="ti-palette"></i>
+                  {{ 'nationalities' | translate }}</a></li>
+                <li><a *ngIf="false" routerLink="/job" routerLinkActive="active">
+                  <i class="ti-palette"></i>
+                  {{ 'jobs' | translate }}</a></li>
+
+              </ul>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+
+      <!-- Left Sidebar End-->
+      <!--=================================
+      wrapper -->
+      <div class="content-wrapper">
+
+        <!--Router Outlet-->
+        <router-outlet></router-outlet>
+        <!-- End of Router Outlet-->
+
+
+        <!--<footer class="bg-white p-4">-->
+          <!--<div class="row">-->
+            <!--<div class="col-md-6">-->
+              <!--<div class="text-center text-md-left">-->
+                <!--<p class="mb-0">-->
+                  <!--&lt;!&ndash;{{ 'assets_system' | translate }}&ndash;&gt;-->
+
+                  <!--<span id="copyright">-->
+
+
+<!--&lt;!&ndash;<element>{{ 'KEY' | translate }}</element>&ndash;&gt;-->
+
+                  <!--&lt;!&ndash;{{ 'TITLE' | translate }}&ndash;&gt;-->
+
+
+                  <!--&lt;!&ndash;<element>{{ 'KEY' | translate }}</element>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<element title="{{ 'KEY' | translate }}"></element>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<element [title]="property | translate"></element>&ndash;&gt;-->
+
+                    <!--<script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>-->
+                  <!--</span>-->
+                <!--</p>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-md-6">-->
+              <!--&lt;!&ndash;<ul class="text-center text-md-right">&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-inline-item"><a href="javascript:void(0);">Terms & Conditions </a></li>&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-inline-item"><a href="javascript:void(0);">API Use Policy </a></li>&ndash;&gt;-->
+              <!--&lt;!&ndash;<li class="list-inline-item"><a href="javascript:void(0);">Privacy Policy </a></li>&ndash;&gt;-->
+              <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</footer>-->
+        <!---->
+        <!---->
+      </div>
+
+
+      <!-- main content wrapper end-->
+    </div>
+  </div>
+
+  <!--=================================
+   footer -->
+
+</div>

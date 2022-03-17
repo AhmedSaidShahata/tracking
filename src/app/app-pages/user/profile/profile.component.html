@@ -1,0 +1,210 @@
+<div class="row mb-30">
+  <div class="col">
+    <div class="card card-statistics" style="width: 100%">
+      <div class="card-body">
+        <h5 class="card-title"> {{'profile' | translate}}</h5>
+        <div class="tab round">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" (click)="setSelectedTab(1)">
+              <a [ngClass]="{'nav-link':true , 'active':selectedTab==1 ,'pointer':true}" data-toggle="tab" role="tab">
+                <i class="fa fa-user-circle"></i> {{'my_info' | translate}}</a>
+            </li>
+            <li class="nav-item" (click)="setSelectedTab(2)">
+              <a [ngClass]="{'nav-link':true , 'active':selectedTab==2,'pointer':true}" role="tab"><i
+                class="fa fa-user"></i> {{'personal_info' | translate}} </a>
+            </li>
+            <li class="nav-item" (click)="setSelectedTab(3)">
+              <a [ngClass]="{'nav-link':true , 'active':selectedTab==3,'pointer':true}"><i class="fa fa-lock"></i>
+                {{'update_password'|translate}} </a>
+            </li>
+            <li class="nav-item" (click)="setSelectedTab(4)">
+              <a [ngClass]="{'nav-link':true , 'active':selectedTab==4,'pointer':true}"><i
+                class="fa fa-camera"></i>
+                {{'change_personal_photo' | translate}} </a>
+            </li>
+
+
+            <li class="nav-item" (click)="setSelectedTab(5)">
+              <a [ngClass]="{'nav-link':true , 'active':selectedTab==5,'pointer':true}"><i
+                class="fa fa-language"></i>
+                {{'change_lang' | translate}} </a>
+            </li>
+
+          </ul>
+
+
+          <div class="row" *ngIf="selectedTab==1">
+            <div class="col-12 text-center">
+              <img class="img-thumbnail rounded-circle" style="width: 100px; height: 100px"
+                   [src]="getUserImage()">
+            </div>
+            <div class="col-12 mt-2 text-center">
+              <h6>{{user.UserName}}</h6>
+              <h6>{{user.Email}}</h6>
+              <h6>{{user.employee?.MobileNumber}}</h6>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="selectedTab==2">
+            <div class="col">
+              <form novalidate #form="ngForm" (ngSubmit)="updateProfile(form)">
+                <!--  name ar -->
+                <div class="form-group">
+                  <label for="nameAr">{{'arabic_name' | translate}}</label>
+                  <input type="text" class="form-control" id="nameAr" name="arabic_name"
+                         [(ngModel)]="userEditableData.NameAr" required>
+                  <small *ngIf="userEditableData.submitForm &&form.controls['arabic_name'].errors?.required"
+                         class="validation-error">
+                    {{'required'|translate}}
+                  </small>
+                </div>
+
+                <!--  name en-->
+                <div class="form-group">
+                  <label for="nameEn">{{'english_name' | translate}}</label>
+                  <input type="text" class="form-control" id="nameEn" name="english_name"
+                         [(ngModel)]="userEditableData.NameEn" required>
+                  <small *ngIf="userEditableData.submitForm  &&form.controls['english_name'].errors?.required"
+                         class="validation-error">
+                    {{'required'|translate}}
+                  </small>
+                </div>
+                <!--  phone-->
+                <div class="form-group">
+                  <label for="phone">{{'mobile' | translate}}</label>
+                  <input maxlength="10" myNumberOnly type="text" class="form-control" id="phone" name="mobile_number"
+                         [(ngModel)]="userEditableData.MobileNumber" required>
+                  <small *ngIf="userEditableData.submitForm  &&form.controls['mobile_number'].errors?.required"
+                         class="validation-error">
+                    {{'required'|translate}}
+                  </small>
+                </div>
+
+                <!-- Address ar-->
+                <div class="form-group">
+                  <label for="addressAr">{{'arabic_address' | translate}}</label>
+                  <input myArabicOnly class="form-control" id="addressAr" name="addressAr"
+                         [(ngModel)]="userEditableData.AddressAr" required>
+                  <small *ngIf="userEditableData.submitForm  &&form.controls['addressAr'].errors?.required"
+                         class="validation-error">
+                    {{'required'|translate}}
+                  </small>
+                </div>
+                <!-- Address en-->
+                <div class="form-group">
+                  <label for="addressAr">{{'english_address' | translate}}</label>
+                  <input myEnglishOnly class="form-control" id="addressEn" name="addressEn"
+                         [(ngModel)]="userEditableData.AddressEn" required>
+                  <small *ngIf="userEditableData.submitForm  &&form.controls['addressEn'].errors?.required"
+                         class="validation-error">
+                    {{'required'|translate}}
+                  </small>
+                </div>
+                <button class="btn btn-success btn-lg" type="submit">{{'edit'|translate}}</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="selectedTab==3">
+            <div class="col">
+              <form novalidate #passForm="ngForm" (ngSubmit)="changePassword(passForm)">
+                <!--  Old Password -->
+                <div class="form-group">
+                  <label for="oldPassword">{{'old_password' | translate}}</label>
+                  <input type="text" class="form-control" id="oldPassword" name="old_password"
+                         [(ngModel)]="passwordData.old_password" required minlength="6">
+                  <small *ngIf="passwordData.submitForm &&passForm.controls['old_password'].errors?.required"
+                         class="validation-error">
+                    {{'required'|translate}}
+                  </small>
+
+                  <small *ngIf="passwordData.submitForm &&passForm.controls['old_password'].errors?.minlength"
+                         class="validation-error">
+                    {{'min_length_6'|translate}}
+                  </small>
+                </div>
+
+                <!--  New Password -->
+                <div class="form-group">
+                  <label for="new_password">{{'new_password' | translate}}</label>
+                  <input type="text" class="form-control" id="new_password" name="new_password"
+                         [(ngModel)]="passwordData.new_password" required minlength="6">
+                  <small *ngIf="passwordData.submitForm  &&passForm.controls['new_password'].errors?.required"
+                         class="validation-error">
+                    {{'required'|translate}}
+                  </small>
+                  <small *ngIf="passwordData.submitForm &&passForm.controls['new_password'].errors?.minlength"
+                         class="validation-error">
+                    {{'min_length_6'|translate}}
+                  </small>
+                </div>
+                <!--  retyped New Password-->
+                <div class="form-group">
+                  <label for="retyped_password">{{'retyped_password' | translate}}</label>
+                  <input type="tel" class="form-control" id="retyped_password" name="retyped_password"
+                         [(ngModel)]="passwordData.same_new_password" required minlength="6">
+                  <small *ngIf="passwordData.submitForm  &&passForm.controls['retyped_password'].errors?.required"
+                         class="validation-error">
+                    {{'required'|translate}}
+                  </small>
+                  <small *ngIf="passwordData.submitForm &&passForm.controls['retyped_password'].errors?.minlength"
+                         class="validation-error">
+                    {{'min_length_6'|translate}}
+                  </small>
+                </div>
+
+                <button class="btn btn-success btn-lg" type="submit">{{'change_password'|translate}}</button>
+                <button class="btn btn-danger btn-lg mx-2" (click)="clearPasswordForm()">{{'clear' |translate}}</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="selectedTab==4">
+            <div class="col">
+              <form #imageForm="ngForm" novalidate (ngSubmit)="uploadPersonalPhoto()">
+
+                <div class="form-group col-md-6">
+                  <label> {{ 'personal_pic' | translate }} </label>
+
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="customFile"
+                           (change)="selectPhoto($event)">
+                    <label class="custom-file-label" for="customFile">
+                    {{filePath}}
+                    </label>
+                  </div>
+                </div>
+                <button class="btn btn-lg btn-success" type="submit">{{'upload_photo' |translate}}</button>
+              </form>
+
+            </div>
+          </div>
+
+
+          <div class="row" *ngIf="selectedTab==5">
+            <div class="col">
+              <form novalidate #form="ngForm" (ngSubmit)="changeLang(form)">
+
+                <div class="form-group col-md-6">
+
+                  <label> {{ 'choose_lang' | translate }} </label>
+                  <select name="lang" required class="form-control" [(ngModel)]="selectedLang">
+                    <option value="ar">{{ 'arabic' | translate }}</option>
+                    <option value="en">{{ 'english' | translate }}</option>
+
+                  </select>
+
+
+                </div>
+
+                <button class="btn btn-success btn-lg" type="submit">{{'edit'|translate}}</button>
+              </form>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

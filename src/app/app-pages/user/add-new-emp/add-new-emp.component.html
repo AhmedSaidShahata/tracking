@@ -1,0 +1,529 @@
+<!-- main body -->
+
+
+<app-model class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+           aria-hidden="true">
+
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="exampleModalLabel">
+          <h5 class="modal-title">
+
+
+            <h5 class="modal-title" *ngIf="editMode == false">{{ 'add_new_emp' | translate }}</h5>
+            <h5 class="modal-title" *ngIf="editMode == true">{{ 'edit_new_emp' | translate }}</h5>
+
+
+          </h5>
+
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                (click)="closeModal()">
+          <span style="color: white" aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form novalidate #addasset="ngForm" (ngSubmit)="addNewAsset(addasset)">
+
+
+          <div class="accordion accordion-border mb-30">
+
+
+            <div class="acd-group" [ngClass]="{'acd-active':selectedTab === 'collapse1'}">
+
+
+              <a class="acd-heading" [ngClass]="{'acd-active':selectedTab === 'collapse1'}" href="javascript:void(0);"
+                 data-toggle="collapse"
+                 data-target="#collapse1" (click)="expandCollpse('collapse1')">
+
+                {{'main_info' |translate}}
+              </a>
+              <div class="acd-des collapse" id="collapse1">
+
+                <div class="row">
+                  <div class="form-group col-md-4">
+                    <label>{{ 'arabic_name' | translate }}</label>
+                    <input required type="text" class="form-control"
+                           myArabicOnly
+                           name="arabic_name" [(ngModel)]="arabic_name"
+                           placeholder="{{ 'arabic_name' | translate }}">
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['arabic_name'].errors?.required">
+                      {{ 'required' | translate }}
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-4">
+                    <label> {{ 'english_name' | translate }}</label>
+                    <input
+                      myEnglishOnly
+                      name="english_name" type="text" class="form-control"
+                           [(ngModel)]="english_name" required
+                           placeholder="{{ 'english_name' | translate }}">
+
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['english_name'].errors?.required">
+                      {{ 'required' | translate }}
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-4" *ngIf="false">
+                    <label>{{ 'arabic_address' | translate }}</label>
+                    <input type="text" class="form-control"
+                           name="arabic_address" [(ngModel)]="arabic_address"
+
+                           myArabicOnly
+                           placeholder="{{ 'arabic_address' | translate }}">
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['arabic_address'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-4" *ngIf="false">
+                    <label>{{ 'english_address' | translate }}</label>
+                    <input type="text" class="form-control"
+                           name="english_address" [(ngModel)]="english_address"
+                           myEnglishOnly
+                           placeholder="{{ 'english_address' | translate }}">
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['english_address'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="form-group col-md-4">
+                    <label>{{ 'mobile' | translate }}</label>
+                    <input type="text" class="form-control"
+                           maxlength="10" myNumberOnly
+                           name="mobileNumber" [(ngModel)]="mobileNumber"
+
+
+                           placeholder="{{ 'mobile' | translate }}">
+
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['mobileNumber'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-4">
+                    <label> {{ 'location' | translate }} </label>
+                    <select class="form-control" name="selectedlocation" [(ngModel)]="selectedlocation" required>
+                      <option value="">{{ 'select' | translate }}</option>
+
+                      <option *ngFor="let obj of locations" [value]="obj.Id">{{obj | translate }}</option>
+
+
+                    </select>
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['selectedlocation'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+                  </div>
+
+
+
+
+
+                  <div class="form-group col-md-4">
+                    <label>  {{ 'Priority' | translate }} </label>
+                    <select required name="Priority" class="form-control"
+                            [(ngModel)]="selectedPriority">
+                      <option value="">{{ 'select' | translate }}</option>
+                      <option value="NORMAL">{{'NORMAL' | translate }}</option>
+                      <option value="VIP">{{'VIP' | translate }}</option>
+                    </select>
+
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['Priority'].errors?.required">
+                      {{ 'required' | translate }}
+                    </div>
+                  </div>
+
+
+
+
+                  <div class="form-group col-md-4" *ngIf="false">
+                    <label> {{ 'nationalities' | translate }} </label>
+                    <select name="selectednationalities" [(ngModel)]="selectednationalities" class="form-control">
+                      <option value="">{{ 'select' | translate }}</option>
+                      <option *ngFor="let obj of nationalities" [value]="obj.Id">{{obj | translate }}</option>
+
+
+                    </select>
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['selectednationalities'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+                  </div>
+                  <div class="form-group col-md-4" *ngIf="false">
+                    <label> {{ 'jobs' | translate }} </label>
+                    <select name="selectedJops" class="form-control" [(ngModel)]="selectedJops">
+                      <option value="">{{ 'select' | translate }}</option>
+
+                      <option *ngFor="let obj of jobs" [value]="obj.Id">{{obj | translate }}</option>
+
+
+                    </select>
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['selectedJops'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-4">
+                    <label> {{ 'personal_pic' | translate }} </label>
+
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="customFile"
+                             (change)="fileSelect($event)">
+                      <label class="custom-file-label" for="customFile"> </label>
+                    </div>
+                  </div>
+
+                  <div class="form-group col-md-2" *ngIf="userImageURL != ''">
+                    <img style="width: 100px; height: 100px"
+                         [src]="userImageURL"
+                         class="rounded float-left
+                           justify-content-center align-items-center"
+                         alt="...">
+
+
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+
+
+            <div class="acd-group" [ngClass]="{'acd-active':selectedTab === 'collapse2'}">
+              <a class="acd-heading" [ngClass]="{'acd-active':selectedTab === 'collapse2'}"
+                 href="javascript:void(0);" data-toggle="collapse"
+                 data-target="#collapse2" (click)="expandCollpse('collapse2')">
+
+                {{'emp_info' |translate}}
+
+              </a>
+              <div class="acd-des collapse" id="collapse2">
+
+                <div class="row">
+
+
+                  <div class="form-group col-md-4">
+                    <label>{{ 'extension_number' | translate }}</label>
+                    <input type="number" class="form-control"
+                           name="extension_number" [(ngModel)]="extension_number"
+
+
+                           placeholder="{{ 'extension_number' | translate }}">
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['extension_number'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-4">
+                    <label> {{ 'emp_number' | translate }}</label>
+                    <input type="text"
+                           name="emp_number"  [(ngModel)]="emp_number"
+                           class="form-control" placeholder=" {{ 'emp_number' | translate }}">
+
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['emp_number'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-4">
+                    <label> {{ 'ip_address' | translate }} </label>
+                    <input type="text" class="form-control"
+                           name="ip_address"   [(ngModel)]="ip_address"
+
+
+                           placeholder="{{ 'ip_address' | translate }}">
+
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['ip_address'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="form-group col-md-4">
+                    <label>{{ 'device_name' | translate }} </label>
+                    <input type="text" class="form-control"
+                           name="device_name"  [(ngModel)]="device_name"
+
+                           placeholder="{{ 'device_name' | translate }}">
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['device_name'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+
+
+                  </div>
+
+
+                  <div class="form-group col-md-4">
+                    <label> {{ 'emps_departments' | translate }} </label>
+                    <select name="selectedDeps"  class="form-control" [(ngModel)]="selectedDeps">
+                      <option value="">{{ 'select' | translate }}</option>
+                      <option *ngFor="let obj of main_categories" [value]="obj.Id">{{obj | translate }}</option>
+
+                    </select>
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['selectedDeps'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-4">
+                    <label>  {{ 'your_manger' | translate }}  </label>
+
+
+                    <ng-select
+                      [multiple]="false"
+                      name="selectedAssigner"
+                               placeholder="{{ 'select' | translate }}"
+
+                      [(ngModel)]="selectedAssigner">
+                      <ng-option *ngFor="let obj of assigners" [value]="obj.Id">
+                        {{obj | translate }}</ng-option>
+
+                    </ng-select>
+
+
+
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['selectedAssigner'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-4" *ngIf="false">
+                    <label> {{ 'hiring_date' | translate }} </label>
+                    <div class="input-group">
+                      <input [(ngModel)]="hireDate" class="form-control" placeholder="yyyy-mm-dd"
+                             name="hireDate" ngbDatepicker #d="ngbDatepicker">
+                      <div class="input-group-append">
+                        <button class="btn btn-secondary" (click)="d.toggle()" type="button">
+                          <i class="fa fa-calendar"></i>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['hireDate'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-4" *ngIf="false">
+                    <label> {{ 'retirement_data' | translate }} </label>
+                    <div class="input-group">
+                      <input [(ngModel)]="retireDate" class="form-control" placeholder="yyyy-mm-dd"
+                             name="retireDate" ngbDatepicker #s="ngbDatepicker">
+                      <div class="input-group-append">
+                        <button class="btn btn-secondary" (click)="s.toggle()" type="button">
+                          <i class="fa fa-calendar"></i>
+                        </button>
+                      </div>
+                    </div>
+
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['retireDate'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+
+                  </div>
+
+
+                </div>
+
+              </div>
+            </div>
+
+
+            <div class="acd-group" [ngClass]="{'acd-active':selectedTab === 'collapse3'}">
+              <a class="acd-heading" [ngClass]="{'acd-active':selectedTab === 'collapse3'}"
+                 href="javascript:void(0);" data-toggle="collapse" data-target="#collapse3"
+                 (click)="expandCollpse('collapse3')">
+                {{'inf_secuirty' |translate}}
+
+              </a>
+              <div class="acd-des collapse" id="collapse3">
+
+                <div class="row">
+
+                  <div class="form-group col-md-4" *ngIf="userRoleselected != '4'">
+                    <label> {{ 'username' | translate }}</label>
+                    <input type="text" class="form-control"
+
+                           name="username" [required]="userRoleselected != '4'" [(ngModel)]="username"
+
+                           placeholder="{{ 'username' | translate }}">
+
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['username'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+
+                  </div>
+
+
+                  <div class="form-group col-md-4" *ngIf="userRoleselected != '4'">
+                    <label>{{ 'password' | translate }}</label>
+                    <input type="password" class="form-control"
+                           name="password" [required]="userRoleselected != '4'" [(ngModel)]="password"
+
+                           placeholder="{{ 'password' | translate }}">
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['password'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-group col-md-4">
+                    <label>{{ 'email' | translate }}</label>
+                    <input type="text" class="form-control"
+                           name="email" required [(ngModel)]="email"
+                           pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                           placeholder="{{ 'email' | translate }}">
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['email'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+
+                    <div class="validation-error"
+                         *ngIf="submitForm && addasset.controls['email'].errors?.pattern">
+                      {{ 'invalid_email' | translate }}
+                    </div>
+
+
+                  </div>
+
+
+                  <div class="form-group col-md-4" >
+                    <label> {{ 'employee_role' | translate }} </label>
+                    <select name="userRoleselected" required class="form-control" [(ngModel)]="userRoleselected">
+                      <option value="">{{ 'select' | translate }}</option>
+                      <option *ngFor="let obj of roles" [value]="obj.Id">{{obj | translate }}</option>
+
+                    </select>
+
+                    <div class="validation-error "
+                         *ngIf=" submitForm && addasset.controls['userRoleselected'].errors?.required">
+                      {{ 'required' | translate }}
+
+                    </div>
+                  </div>
+
+
+                  <div class="from-group col-md-6" *ngIf="userRoleselected != '4'">
+                    <label> {{ 'employee_category' | translate }} </label>
+
+
+                    <ng-select name="userCategory" [items]="allCategories"
+                               bindLabel="NameAr"
+                               placeholder="{{ 'select' | translate }}"
+
+                               [multiple]="true"
+                               [(ngModel)]="userCategories">
+                    </ng-select>
+                    <!--<select class="form-control" multiple name="userCategory" #userCategoriesView>-->
+                    <!--<option value="" >{{ 'all' | translate }}</option>-->
+                    <!--<option *ngFor="let category of allCategories" [selected]="isCategorySelected(category)">{{category |-->
+                    <!--translate}}-->
+                    <!--</option>-->
+                    <!--</select>-->
+                    <!--<div class="validation-error "-->
+                    <!--*ngIf=" submitForm && userCategories.length==0">-->
+                    <!--{{ 'required' | translate }}-->
+
+                    <!--</div>-->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+          <div class="row" justify-content-center>
+
+            <button type="button" type="submit" class="btn btn-success btn-lg  col-2" style="margin: 10px">
+
+              <span *ngIf="editMode == false">{{ 'add' | translate }}</span>
+
+              <span *ngIf="editMode == true">{{ 'edit' | translate }}</span>
+            </button>
+
+            <button (click)="ClearAll()" type="button" class="btn btn-danger btn-lg col-2"
+                    style="margin: 10px">{{ 'clear' | translate }}
+            </button>
+
+
+          </div>
+
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+</app-model>

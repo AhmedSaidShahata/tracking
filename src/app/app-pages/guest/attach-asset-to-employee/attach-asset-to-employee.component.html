@@ -1,0 +1,102 @@
+<div class="page-title">
+  <div class="row">
+    <div class="col-sm-6">
+      <h4 class="mb-0"> {{ 'attach_assets' | translate }}
+      </h4>
+    </div>
+    <div class="col-sm-6">
+      <ol class="breadcrumb pt-0 float-left float-sm-right ">
+        <li class="breadcrumb-item"><a href="javascript:void(0);" class="default-color">{{ 'assets' | translate }}</a>
+        </li>
+        <li class="breadcrumb-item active">{{ 'attach_assets' | translate }} </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xl-12 mb-30">
+    <div class="card card-statistics h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-0">{{ 'assets_list' | translate }}</h5>
+
+        <h4 *ngIf="NoteText != ''">
+
+          {{'NoteText' |translate}} : - {{NoteText}}
+        </h4>
+
+        <div class="table-responsive">
+          <table class="table table-1 table-bordered table-striped mb-0">
+            <thead>
+            <tr>
+
+              <th>{{ 'serial_number' | translate }}</th>
+              <th>{{ 'main_department' | translate }}</th>
+              <th>{{ 'category' | translate }}</th>
+              <th>{{ 'model' | translate }}</th>
+              <th>{{ 'status' | translate }}</th>
+              <th>{{ 'location' | translate }}</th>
+              <th>{{ 'building' | translate }}</th>
+              <th>{{ 'floor' | translate }}</th>
+              <th>{{ 'offices_select' | translate }}</th>
+
+              <th>{{ 'action' | translate }}</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr *ngFor="let item of assets;let i = index">
+
+
+              <td>{{item.SerialNumber}}</td>
+
+
+              <td>{{item.main_category | translate}}</td>
+              <td>{{item.category | translate}}</td>
+              <td>{{item.model | translate}}</td>
+
+              <td>{{item.status | translate}}</td>
+
+
+              <td>{{item.location | translate}}</td>
+              <td>{{item.tower | translate}}</td>
+              <td>{{item.floor | translate}}</td>
+              <td>{{item.room | translate}}</td>
+              <td>
+                <div class="row" *ngIf="isAttachedBefore(item)">
+                  <button (click)="AcceptAsset(item ,i)" type="button" type="submit" class="btn btn-success btn-lg" style="margin: 10px">
+                    {{'accept'| translate}}
+                  </button>
+                  <button  (click)="RejectAsset(item,i)"  type="button" type="submit" class="btn btn-danger btn-lg" style="margin: 10px">
+                    {{'reject'| translate}}
+                  </button>
+                </div>
+
+                <div *ngIf="!isAttachedBefore(item)">
+                  {{'attached_before' | translate}}
+                </div>
+
+              </td>
+
+
+            </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+

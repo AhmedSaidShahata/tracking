@@ -1,0 +1,336 @@
+<div class="page-title">
+  <div class="row">
+    <div class="col-sm-6">
+      <h4 class="mb-0"> {{ 'control_emps' | translate }}
+      </h4>
+    </div>
+    <div class="col-sm-6">
+      <ol class="breadcrumb pt-0 float-left float-sm-right ">
+        <li class="breadcrumb-item"><a href="javascript:void(0);" class="default-color">{{ 'main' | translate }}</a>
+        </li>
+        <li class="breadcrumb-item active">{{ 'control_emps' | translate }}</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+
+<app-add-new-emp #addemp>
+
+</app-add-new-emp>
+
+
+<!-- main body -->
+<div class="row">
+  <div class="col-xl-12 mb-30">
+    <div class="card card-statistics h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-0">{{ 'emps_search' | translate }}</h5>
+
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label>{{ 'emp_name' | translate }}</label>
+            <input type="text" [(ngModel)]="empname" class="form-control" placeholder="{{ 'emp_name' | translate }}">
+          </div>
+
+
+          <div class="form-group col-md-3" >
+            <label> {{ 'jobs' | translate }} </label>
+            <select class="form-control" [(ngModel)]="selectedJops">
+              <option value="">{{ 'select' | translate }}</option>
+
+              <option *ngFor="let obj of jobs" [value]="obj.Id">{{obj | translate }}</option>
+
+
+            </select>
+          </div>
+
+
+          <div class="form-group col-md-3">
+            <label> {{ 'emps_departments' | translate }} </label>
+            <select class="form-control" [(ngModel)]="selectedDeps">
+              <option value="">{{ 'select' | translate }}</option>
+              <option *ngFor="let obj of main_categories" [value]="obj.Id">{{obj | translate }}</option>
+
+            </select>
+          </div>
+
+
+          <div class="form-group col-md-3">
+            <label>{{ 'mobile' | translate }}</label>
+            <input type="text" class="form-control"
+                   maxlength="10" myNumberOnly
+                   name="mobileNumber" [(ngModel)]="mobileNumber"
+
+
+                   placeholder="{{ 'mobile' | translate }}">
+
+
+
+          </div>
+
+          <div class="form-group col-md-3">
+            <label> {{ 'location' | translate }} </label>
+            <select class="form-control" name="selectedlocation" [(ngModel)]="selectedlocation" required>
+              <option value="">{{ 'select' | translate }}</option>
+
+              <option *ngFor="let obj of locations" [value]="obj.Id">{{obj | translate }}</option>
+
+
+            </select>
+
+
+          </div>
+
+
+          <div class="form-group col-md-3">
+            <label>{{ 'extension_number' | translate }}</label>
+            <input type="number" class="form-control"
+                   name="extension_number" [(ngModel)]="extension_number"
+
+
+                   placeholder="{{ 'extension_number' | translate }}">
+
+
+          </div>
+
+
+          <div class="form-group col-md-3">
+            <label> {{ 'emp_number' | translate }}</label>
+            <input type="text"
+                   name="emp_number"  [(ngModel)]="emp_number"
+                   class="form-control" placeholder=" {{ 'emp_number' | translate }}">
+
+
+          </div>
+
+
+          <div class="form-group col-md-3">
+            <label> {{ 'ip_address' | translate }} </label>
+            <input type="text" class="form-control"
+                   name="ip_address"   [(ngModel)]="ip_address"
+
+
+                   placeholder="{{ 'ip_address' | translate }}">
+
+
+
+          </div>
+
+
+          <div class="form-group col-md-3">
+            <label>{{ 'device_name' | translate }} </label>
+            <input type="text" class="form-control"
+                   name="device_name"  [(ngModel)]="device_name"
+
+                   placeholder="{{ 'device_name' | translate }}">
+
+
+          </div>
+
+
+
+
+          <div class="form-group col-md-3" *ngIf="false" >
+            <label> {{ 'employee_role' | translate }} </label>
+            <select name="userRoleselected" required class="form-control" [(ngModel)]="userRoleselected">
+              <option value="">{{ 'select' | translate }}</option>
+              <option *ngFor="let obj of roles" [value]="obj.Id">{{obj | translate }}</option>
+
+            </select>
+
+
+          </div>
+
+
+
+          <div class="form-group col-md-3">
+            <label>  {{ 'Priority' | translate }} </label>
+            <select required name="Priority" class="form-control"
+                    [(ngModel)]="selectedPriority">
+              <option value="">{{ 'select' | translate }}</option>
+              <option value="NORMAL">{{'NORMAL' | translate }}</option>
+              <option value="VIP">{{'VIP' | translate }}</option>
+            </select>
+
+
+          </div>
+
+
+
+          <div class="form-group col-md-3">
+            <label>  {{ 'your_manger' | translate }}  </label>
+
+
+            <ng-select
+              [multiple]="false"
+              name="selectedAssigner"
+              placeholder="{{ 'select' | translate }}"
+
+              [(ngModel)]="selectedAssigner">
+              <ng-option *ngFor="let obj of assigners" [value]="obj.Id">
+                {{obj | translate }}</ng-option>
+
+            </ng-select>
+
+
+
+
+
+          </div>
+
+
+
+
+
+          <div class="form-group col-md-3">
+            <label>{{ 'email' | translate }}</label>
+            <input type="text" class="form-control"
+                   name="email" required [(ngModel)]="email"
+                   pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                   placeholder="{{ 'email' | translate }}">
+
+
+
+          </div>
+
+        </div>
+
+        <div class="row justify-content-center">
+
+          <button type="button" (click)="SearchAsset()" class="btn btn-primary  btn-lg  col-md-2" style="margin: 10px">
+            {{ 'search' | translate }}
+          </button>
+
+          <button type="button" (click)="ClearAll()" class="btn btn-danger btn-lg col-md-2" style="margin: 10px">{{
+            'clear' | translate }}
+          </button>
+
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-xl-12 mb-30">
+    <div class="card card-statistics h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-0">{{ 'emps_list' | translate }}</h5>
+
+        <div class="row justify-content-center">
+
+
+          <div class="form-group col-md-3">
+
+
+            <button type="button" (click)="showAddNewItem()" class="btn btn-primary  btn-lg btn-block"
+                    style="margin: 10px">{{ 'add_new_emp' | translate }}
+            </button>
+
+
+          </div>
+
+          <div class="form-group col-md-3">
+
+            <button type="button" (click)="importExcelfile()" class="btn btn-primary  btn-lg btn-block"
+                    style="margin: 10px">{{ 'excel_employee' | translate }}
+
+              <input type="file" id="fileexplore" style="display:none" (change)="importExcel($event)">
+
+            </button>
+
+
+          </div>
+
+
+        </div>
+        <div class="table-responsive">
+          <table class="table table-1 table-bordered table-striped mb-0">
+            <thead>
+            <tr>
+
+              <th>{{ 'arabic_name' | translate }}</th>
+              <th>{{ 'english_name' | translate }}</th>
+              <th>{{ 'email' | translate }}</th>
+              <th>{{ 'department_name' | translate }}</th>
+              <th *ngIf="false">{{ 'the_job' | translate }}</th>
+              <th>{{ 'manager' | translate }}</th>
+              <th>{{ 'edit' | translate }}</th>
+              <th appCanDelete>{{ 'delete' | translate }}</th>
+              <th>{{ 'reset_password' | translate }}</th>
+              <th>{{ 'send_email_for_asset' | translate }}</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of emplist;let i = index">
+
+              <td>{{item.NameAr}}</td>
+              <td>{{item.NameEn}}</td>
+              <td>{{item.Email}}</td>
+              <td>{{item.department | translate}}</td>
+              <td *ngIf="false">{{item.job | translate}}</td>
+              <td>{{item.manager | translate}}</td>
+
+
+              <td>
+                <i (click)="editAsset(item,i)" class="fa fa-edit"></i>
+
+              </td>
+
+              <td appCanDelete>
+
+                <i (click)="deleteAsset(item,i)" class="text-primary ti-trash "></i>
+              </td>
+
+
+              <td>
+
+                <i class="text-primary  fa fa-expeditedssl" (click)="updateUserPassword(item)"></i>
+              </td>
+
+              <td>
+
+             <span *ngIf="item.assets_assigned.length > 0"
+
+
+                   (click)="sendAssetReminderEmail(item.Id)">   <i class="text-primary ti-email "></i></span>
+              </td>
+
+
+            </tr>
+
+            </tbody>
+          </table>
+
+          <div class="sm-mt-20" style="margin-top: 20px">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination justify-content-center">
+
+                <ngb-pagination [maxSize]="10" [directionLinks]="true"
+
+
+                                [pageSize]="10" (pageChange)="SearchAssetPage($event)" [collectionSize]="count"
+                                aria-label="Default pagination"></ngb-pagination>
+
+
+              </ul>
+            </nav>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <app-update-user-password #passwordComponent></app-update-user-password>
+
+</div>
